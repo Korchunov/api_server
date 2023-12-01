@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/Korchunov/api_server.git/internal/config"
+	"github.com/joho/godotenv"
+	"log"
 	"log/slog"
 	"os"
 )
@@ -14,6 +16,9 @@ const (
 )
 
 func main() {
+	if err := godotenv.Load("enviroment.env"); os.IsNotExist(err) {
+		log.Fatal("фатальный лог")
+	}
 	cfg := config.MustLoad()
 	fmt.Println(cfg)
 	log := setupLogger(cfg.Env)
